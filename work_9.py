@@ -42,9 +42,9 @@ regres = model.fit(x, y)
 print(regres.coef_)
 print(regres.intercept_)
 
-plt.scatter(x, y)
-plt.plot(x, b1 * x + b0, 'r')
-plt.show()
+# plt.scatter(x, y)
+# plt.plot(x, b1 * x + b0, 'r')
+# plt.show()
 
 # x = sm.add_constant(x)
 # model = sm.OLS(y, x)
@@ -59,12 +59,12 @@ plt.show()
 # градиентный спуск (без intercept).
 
 a = 10**-10
-B1 = 0.1
+B1 = -0.1
 
-for i in range(30):
+for i in range(1000):
     B1-= a * (2/n) * np.sum((B1*x-y)*x)
-    # if i%100==0:
-    print('B1 ={}'.format(B1))
+    if i%100==0:
+        print('B1 ={}'.format(B1))
 
 
 
@@ -84,13 +84,15 @@ for i in range(30):
 solution = []
 evaluation = []
 
-for i in range(20):
+for i in range(3000):
     solution.append(B1)
     B1_evaluation = np.object_(B1)
     evaluation.append(B1_evaluation)
 
     gradient = (2/n) * np.sum((B1*x-y)*x)
-    new_B1 = B1 - 0.1* gradient
-    B1 = new_B1
-    print(i, '',  B1,'',   B1_evaluation)
+    if i%100==0:
+        new_B1 = B1 - 0.01* gradient
+        B1 = new_B1
+    
+        print(i, '',  B1,'',   B1_evaluation)
 
